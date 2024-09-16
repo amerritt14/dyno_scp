@@ -1,0 +1,14 @@
+<%= render "styles" %>
+
+<div><%= notice %></div>
+<div class="card-holder">
+  <div class="card">
+    <h3>File Upload</h3>
+    <%= form_with url: files_path, method: :post do |f| %>
+      <div class="row">
+        <%= f.file_field :file %>
+        <%= f.submit "Upload" %>
+      </div>
+    <% end %>
+  </div>
+</div>
