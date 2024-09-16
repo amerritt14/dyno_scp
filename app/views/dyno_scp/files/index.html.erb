@@ -1,0 +1,25 @@
+<%= render "styles" %>
+
+<div><%= notice %></div>
+<%# Show a card for each file%>
+
+<%- if @files.count.zero? %>
+  <div class="card-holder">
+    <div class="card">
+      <h3>No files uploaded yet</h3>
+    </div>
+  </div>
+<%- else %>
+  <div class="card-holder">
+    <% @files.each do |file| %>
+      <div class="card">
+        <h3><%= file[:name] %></h3>
+        <p><%= "Path: #{file[:relative_path]}" %></p>
+        <p><%= "Size: #{file[:size]}" %></p>
+        <p><%= "Uploaded: #{file[:created_at]}" %></p>
+        <p><%= link_to "Download", file[:relative_path], target: '_blank', download: file[:name] %></p>
+        <%= button_to 'Delete', file_path(file_name: file[:name]), method: :delete, data: { confirm: 'Are you sure you want to delete this file?' }, class: 'btn btn-danger' %>
+      </div>
+    <% end %>
+  </div>
+<%- end %>
