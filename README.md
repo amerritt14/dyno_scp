@@ -1,7 +1,7 @@
 # Dyno Scp
 
 Heroku doesnt allow you to scp a file up to their server. This gem creates a
-barebones file upload mechanism that dumps and file uploaded into the public
+barebones file upload mechanism that dumps a file uploaded into the public
 directory. Heroku automatically cleans that directory regularly so we dont have
 to worry about files lingering around.
 
