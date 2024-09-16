@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "n2/scp/version"
-require "n2/scp/engine"
+require "dyno_scp/version"
+require "dyno_scp/engine"
 
 module DynoScp
 end

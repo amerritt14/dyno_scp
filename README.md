@@ -27,7 +27,7 @@ And then execute:
 Mount the engine in your routes file:
 
 ```ruby
-mount DynoScp::Engine, at: "/dyno_scp", as: :scp
+mount DynoScp::Engine, at: "/dyno_scp"
 ```
 
 ### Tips
