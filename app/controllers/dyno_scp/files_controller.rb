@@ -16,6 +16,11 @@ module DynoScp
     def create
       file = params[:file]
 
+      if file.nil?
+        redirect_to new_file_path, alert: "No file selected"
+        return
+      end
+
       File.open(Rails.root.join("#{::DynoScp.folder_path}/#{file.original_filename}"), "wb") do |f|
         f.write file.read
       end
@@ -27,7 +32,7 @@ module DynoScp
       file_path = Rails.root.join("#{::DynoScp.folder_path}/#{params[:file_name]}")
       if File.exist?(file_path)
         File.delete(file_path)
-        redirect_to files_path, notice: "File deleted successfully"
+        redirect_to files_path, notice: "#{params[:file_name]} deleted"
       else
         redirect_to files_path, notice: "File not found"
       end
@@ -48,7 +53,7 @@ module DynoScp
           relative_path: "/#{::DynoScp.folder}/#{File.basename(file)}",
           path: Rails.root.join(file).to_s,
           size: File.size(file),
-          created_at: File.ctime(file)
+          created_at: File.ctime(file).to_fs(:long)
         }
       end
     end

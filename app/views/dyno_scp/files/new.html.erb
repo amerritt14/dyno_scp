@@ -1,14 +1,26 @@
 <%= render "styles" %>
 
-<div><%= notice %></div>
-<div class="card-holder">
-  <div class="card">
-    <h3>File Upload</h3>
-    <%= form_with url: files_path, method: :post do |f| %>
-      <div class="row">
-        <%= f.file_field :file %>
-        <%= f.submit "Upload" %>
-      </div>
+<div class="container">
+  <div class="mb-20">
+    <%- if notice %>
+      <div class="notice"><%= notice %></div>
+    <%- elsif alert %>
+      <div class="alert font-danger"><%= alert %></div>
     <% end %>
+  </div>
+
+
+  <%= button_to "View Files", files_path, method: :get, class: "btn btn-primary right-align"%>
+
+  <div class="card-holder">
+    <div class="card">
+      <h3>File Upload</h3>
+      <%= form_with url: files_path, method: :post do |f| %>
+        <div class="row">
+          <%= f.file_field :file, class: "btn btn-primary" %>
+          <%= f.submit "Upload", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
