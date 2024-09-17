@@ -21,14 +21,13 @@ module DynoScp
         return
       end
 
-      save_path = Rails.root.join("#{::DynoScp.folder_path}/#{file.original_filename}")
-      filename = resolve_name_collision(file.original_filename) if File.exist?(save_path)
+      filename = resolve_name_collision(file.original_filename)
 
       File.open(Rails.root.join("#{::DynoScp.folder_path}/#{filename}"), "wb") do |f|
         f.write file.read
       end
 
-      redirect_to new_file_path, notice: "File uploaded to public"
+      redirect_to new_file_path, notice: "#{filename} uploaded"
     end
 
     def destroy
@@ -62,16 +61,22 @@ module DynoScp
     end
 
     def resolve_name_collision(filename)
+      return filename unless File.exist?("#{save_path}/#{filename}")
+
       basename = File.basename(filename, ".*")
       extension = File.extname(filename)
       counter = 1
 
       # Loop until we find a file name that doesn't exist
-      while File.exist?(Rails.root.join("#{::DynoScp.folder_path}/#{basename}(#{counter})#{extension}"))
+      while File.exist?("#{save_path}/#{basename}(#{counter})#{extension}")
         counter += 1
       end
 
       "#{basename}(#{counter})#{extension}"
+    end
+
+    def save_path
+      Rails.root.join("#{::DynoScp.folder_path}")
     end
   end
 end
